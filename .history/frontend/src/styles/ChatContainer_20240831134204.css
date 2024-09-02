@@ -48,11 +48,6 @@
 
 .username h3 {
   color: #a7bc5b;
-  font-size: x-large !important;
-}
-#chat-username
-{
-  font-size: xx-large !important;
 }
 
 .chat-messages {
@@ -85,7 +80,7 @@
   max-width: 40%;
   overflow-wrap: break-word;
   padding: 1rem;
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
   border: 2px solid #2f3b02;
   border-radius: 1rem;
   background-color: white !important;

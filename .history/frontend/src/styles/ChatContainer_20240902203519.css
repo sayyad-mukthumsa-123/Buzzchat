@@ -50,10 +50,6 @@
   color: #a7bc5b;
   font-size: x-large !important;
 }
-#chat-username
-{
-  font-size: xx-large !important;
-}
 
 .chat-messages {
   padding: 1rem;
