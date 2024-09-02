@@ -82,7 +82,7 @@ require("dotenv").config();
 
 // Configure CORS
 app.use(cors({
-  origin: ['https://buzzchat-frontend-ilm3.onrender.com', 'http://localhost:3000','*'], // Allow both localhost and your deployed frontend
+  origin: ['https://buzzchat-frontend-ilm3.onrender.com', 'http://localhost:3000'], // Allow both localhost and your deployed frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow necessary HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow headers necessary for your requests
   credentials: true // Allow cookies and credentials to be sent
