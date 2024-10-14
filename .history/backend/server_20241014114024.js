@@ -5,19 +5,19 @@
 // const messageRoutes = require("./routes/messages");
 // const app = express();
 // const socket = require("socket.io");
-// const path =require("path");
+// const path = require("path");
 // require("dotenv").config();
 
 // app.use(cors({
-//   origin: 'https://buzzchat-frontend-ilm3.onrender.com/' 
+//   origin: ['https://buzzchat-frontend-ilm3.onrender.com', 'http://localhost:3000'],
+//   credentials: true,
 // }));
 // app.use(express.json());
 
 // mongoose
-//   .connect(process.env.MONGO_URL
-//     )
+//   .connect(process.env.MONGO_URL)
 //   .then(() => {
-//     console.log("DB Connetion Successfull");
+//     console.log("DB Connection Successful");
 //   })
 //   .catch((err) => {
 //     console.log(err.message);
@@ -31,18 +31,14 @@
 // app.use("/api/messages", messageRoutes);
 
 // // Deployment code
-// const __dirname1=path.resolve();
-// if(process.env.NODE_ENV == "production")
-// {
-//   app.use(express.static(path.join(__dirname1,"../frontend/build")));
-//   app.get("*",(req,res)=>
-//   {
-//     res.sendFile(path.resolve(__dirname1,"frontend","build","index.html"));
-//   })
-// }
-// else{
-//   app.get("/",(req,res)=>
-//   {
+// const __dirname1 = path.resolve();
+// if (process.env.NODE_ENV == "production") {
+//   app.use(express.static(path.join(__dirname1, "../frontend/build")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+//   });
+// } else {
+//   app.get("/", (req, res) => {
 //     res.send("Running successfully!!!");
 //   });
 // }
@@ -50,9 +46,10 @@
 // const server = app.listen(process.env.PORT, () =>
 //   console.log(`Server started on ${process.env.PORT}`)
 // );
+
 // const io = socket(server, {
 //   cors: {
-//     origin: "http://localhost:3000",
+//     origin: ['https://buzzchat-frontend-ilm3.onrender.com', 'http://localhost:3000'],
 //     credentials: true,
 //   },
 // });
@@ -73,7 +70,6 @@
 // });
 
 
-
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -84,10 +80,16 @@ const socket = require("socket.io");
 const path = require("path");
 require("dotenv").config();
 
+// Configure CORS
 app.use(cors({
-  origin: ['https://buzzchat-frontend-ilm3.onrender.com', 'http://localhost:3000'],
-  credentials: true,
+  origin: ['https://buzzchat-frontend-ilm3.onrender.com', 'http://localhost:3000','*'], // Allow both localhost and your deployed frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow necessary HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow headers necessary for your requests
+  credentials: true // Allow cookies and credentials to be sent
 }));
+app.options('*', cors());
+
+
 app.use(express.json());
 
 mongoose
@@ -107,17 +109,17 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 // Deployment code
-const __dirname1 = path.resolve();
-if (process.env.NODE_ENV == "production") {
-  app.use(express.static(path.join(__dirname1, "../frontend/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("Running successfully!!!");
-  });
-}
+// const __dirname1 = path.resolve();
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname1, "../frontend/build")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
+//   });
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("Running successfully!!!");
+//   });
+// }
 
 const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)
